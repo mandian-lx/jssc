@@ -3,7 +3,7 @@ Name:		jssc
 Version:	2.8.0
 Release:	6%{?dist}
 License:	GPLv3+
-Group:		System Environment/Libraries
+Group:		Development/Java
 URL:		http://jssc.scream3r.org
 Source:		https://github.com/scream3r/java-simple-serial-connector/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 # lack of license file, reported upstream:
