@@ -1,0 +1,54 @@
+Index: java-simple-serial-connector-2.8.0/src/java/jssc/SerialNativeInterface.java
+===================================================================
+--- java-simple-serial-connector-2.8.0.orig/src/java/jssc/SerialNativeInterface.java
++++ java-simple-serial-connector-2.8.0/src/java/jssc/SerialNativeInterface.java
+@@ -76,11 +76,40 @@ public class SerialNativeInterface {
+      */
+     public static final String PROPERTY_JSSC_PARMRK = "JSSC_PARMRK";
+ 
++    private static boolean tryLoad(String filename) {
++        try {
++            System.load(filename);
++        } catch (Exception e) {
++            return false;
++        } catch (UnsatisfiedLinkError e) {
++            return false;
++        }
++
++        String versionBase = getLibraryBaseVersion();
++        String versionNative = getNativeLibraryVersion();
++
++        if (!versionBase.equals(versionNative)) {
++            System.err.println("Warning! jSSC Java and Native versions mismatch (Java: " + versionBase + ", Native: " + versionNative + ")");
++        }
++
++        return true;
++    }
++
+     static {
+         String libFolderPath;
+         String libName;
+ 
+         String osName = System.getProperty("os.name");
++
++        boolean libLoaded = false;
++
++        if ("Linux".equals(osName)) {
++            libLoaded = tryLoad("/usr/lib64/jssc/libjSSC.so");
++            if (!libLoaded) {
++                libLoaded = tryLoad("/usr/lib/jssc/libjSSC.so");
++            }
++        }
++
+         String architecture = System.getProperty("os.arch");
+         String userHome = System.getProperty("user.home");
+         String fileSeparator = System.getProperty("file.separator");
+@@ -168,7 +197,7 @@ public class SerialNativeInterface {
+             }
+         }
+ 
+-        if (loadLib) {
++        if (loadLib && !libLoaded) {
+             System.load(libFolderPath + fileSeparator + libName);
+             String versionBase = getLibraryBaseVersion();
+             String versionNative = getNativeLibraryVersion();

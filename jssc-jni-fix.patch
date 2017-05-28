@@ -1,0 +1,13 @@
+Index: java-simple-serial-connector-2.8.0/src/cpp/_nix_based/jssc.cpp
+===================================================================
+--- java-simple-serial-connector-2.8.0.orig/src/cpp/_nix_based/jssc.cpp
++++ java-simple-serial-connector-2.8.0/src/cpp/_nix_based/jssc.cpp
+@@ -51,7 +51,7 @@
+ /*
+  * Get native library version
+  */
+-JNIEXPORT jstring JNICALL Java_jssc_SerialNativeInterface_getNativeLibraryVersion(JNIEnv *env, jobject object) {
++JNIEXPORT jstring JNICALL Java_jssc_SerialNativeInterface_getNativeLibraryVersion(JNIEnv *env, jclass clazz) {
+     return env->NewStringUTF(jSSC_NATIVE_LIB_VERSION);
+ }
+ 
