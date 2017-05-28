@@ -63,7 +63,7 @@ mkdir -p javadoc/
 (cd classes; javah -jni -d ../src/cpp -encoding UTF-8 jssc.SerialNativeInterface)
 # compile native library
 %setup_compile_flags
-$(CXX) %{optflags} %{?__global_ldflags} -std=c++11 -fPIC -shared \
+${CXX} %{optflags} %{?__global_ldflags} -std=c++11 -fPIC -shared \
     -D jSSC_NATIVE_LIB_VERSION=\"$(echo %{version} | sed 's/\([1-9]\.[0-9]\).*/\1/')\" \
     -I %{java_home}/include \
     -I %{java_home}/include/linux \
