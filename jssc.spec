@@ -1,3 +1,5 @@
+%{?_javapackages_macros:%_javapackages_macros}
+
 Summary:	Java Simple Serial Connector
 Name:		jssc
 Version:	2.8.0
